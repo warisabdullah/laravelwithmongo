@@ -96,7 +96,7 @@ class ProductsController extends Controller
            'price' => $request->price,
            'is_active' => $request->is_active,
        ];
-       //
+       //d
         $productUpdated = $this->productRepository->updateProduct($request->_id, $data);
         return response()->json("Success");
     }
