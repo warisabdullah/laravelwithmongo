@@ -320,12 +320,9 @@
                         <td>{{$product->is_active == "on" ? "Yes": "No"}}</td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal" data-value="{{$product->id}}"><i
-                                    class="material-icons"
-                                    data-toggle="tooltip"
-                                    title="Edit">&#xE254;</i></a>
+                                    class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"
-                               data-value="{{$product->id}}"><i class="material-icons"
-                                                                data-toggle="tooltip"
+                               data-value="{{$product->id}}"><i class="material-icons" data-toggle="tooltip"
                                                                 title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
@@ -408,6 +405,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
 @include('Products.welcome_script')
