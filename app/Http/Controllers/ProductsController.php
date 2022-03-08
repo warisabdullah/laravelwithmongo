@@ -90,6 +90,12 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Products $products)
     {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'price' => 'required',
+        ]);
+
        $data = [
            'name' => $request->name,
            'slug' => $request->slug,
