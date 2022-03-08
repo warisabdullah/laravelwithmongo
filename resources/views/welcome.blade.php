@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+    <title>Laravel CRUD with Mongodb</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -317,7 +317,7 @@
                         <td>{{$product->name}}</td>
                         <td>{{$product->slug}}</td>
                         <td>{{$product->price}}</td>
-                        <td>{{$product->is_active == 1 ? "Yes": "No"}}</td>
+                        <td>{{$product->is_active == "on" ? "Yes": "No"}}</td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal" data-value="{{$product->id}}"><i
                                     class="material-icons"
@@ -333,17 +333,6 @@
                 </tbody>
             </table>
             <div class="clearfix">
-                {{--                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>--}}
-                {{--                <ul class="pagination">--}}
-                {{--                    <li class="page-item disabled"><a href="#">Previous</a></li>--}}
-                {{--                    <li class="page-item"><a href="#" class="page-link">1</a></li>--}}
-                {{--                    <li class="page-item"><a href="#" class="page-link">2</a></li>--}}
-                {{--                    <li class="page-item active"><a href="#" class="page-link">3</a></li>--}}
-                {{--                    <li class="page-item"><a href="#" class="page-link">4</a></li>--}}
-                {{--                    <li class="page-item"><a href="#" class="page-link">5</a></li>--}}
-                {{--                    <li class="page-item"><a href="#" class="page-link">Next</a></li>--}}
-                {{--                </ul>--}}
-                {{--            </div>--}}
             </div>
         </div>
     </div>
@@ -372,7 +361,7 @@
                         </div>
                         <div class="form-group">
                             <label>is_active</label>
-                            <input type="checkbox" class="form-control" name="is_active" value="1">
+                            <input type="checkbox" class="form-control" name="is_active">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -393,22 +382,22 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <input type="text" class="form-control" name="_id" hidden>
+                        <input type="text" class="form-control" name="id" hidden id="objectId">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" name="name">
+                            <input type="text" class="form-control" name="name" id="name">
                         </div>
                         <div class="form-group">
                             <label>Slug</label>
-                            <input type="text" class="form-control" name="slug">
+                            <input type="text" class="form-control" name="slug" id="slug">
                         </div>
                         <div class="form-group">
                             <label>Price</label>
-                            <input class="form-control" name="price"/>
+                            <input class="form-control" name="price" id="price"/>
                         </div>
                         <div class="form-group">
                             <label>is_active</label>
-                            <input type="checkbox" class="form-control" name="is_active">
+                            <input type="checkbox" class="form-control" name="is_active" id="is_active">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -421,78 +410,4 @@
     </div>
 </body>
 </html>
-<script>
-    $(document).ready(function ($) {
-        $('#addProduct').on('submit', function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: 'create/product',
-                data: $(this).serialize(),
-                success: function (result) {
-                    window.location.reload();
-                },
-                error: function (result) {
-                    $.each(result.responseJSON.errors,function(field_name,error){
-                        toastr.error(error);
-                    });
-                }
-            })
-
-        });
-        $('.edit').click(function () {
-            console.log($(this).data("value"));
-            $.ajax({
-                type: "GET",
-                url: 'edit/product',
-                data: {
-                    "id": $(this).data("value")
-                },
-                success: function (result) {
-                    $.each(result,function(field_name,value){
-                        $(document).find('[name='+field_name+']').val(value);
-                    });
-                    $('input[name=is_active]').prop('checked', false);
-                    if (result.is_active == "1") {
-                        $('input[name=is_active]').prop('checked', true);
-                    }
-                },
-                error: function (result) {
-                }
-            })
-        })
-        $('#updateProduct').on('submit', function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: 'update/product',
-                data: $(this).serialize(),
-                success: function (result) {
-                    window.location.reload();
-                },
-                error: function (result) {
-                    $.each(result.responseJSON.errors,function(field_name,error){
-                        toastr.error(error);
-                    });
-                }
-            })
-
-        });
-        $('.delete').click(function () {
-            console.log($(this).data("value"));
-            $.ajax({
-                type: "GET",
-                url: 'delete/product',
-                data: {
-                    "id": $(this).data("value")
-                },
-                success: function (result) {
-                    window.location.reload();
-                },
-                error: function (result) {
-                    //
-                }
-            })
-        })
-    });
-</script>
+@include('Products.welcome_script')

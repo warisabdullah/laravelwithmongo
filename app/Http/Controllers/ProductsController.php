@@ -103,7 +103,7 @@ class ProductsController extends Controller
            'is_active' => $request->is_active,
        ];
        //d
-        $productUpdated = $this->productRepository->updateProduct($request->_id, $data);
+        $productUpdated = $this->productRepository->updateProduct($request->id, $data);
         return response()->json("Success");
     }
 /////////////////////
