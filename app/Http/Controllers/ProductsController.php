@@ -90,6 +90,12 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Products $products)
     {
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+            'price' => 'required',
+        ]);
+
        $data = [
            'name' => $request->name,
            'slug' => $request->slug,
@@ -97,7 +103,7 @@ class ProductsController extends Controller
            'is_active' => $request->is_active,
        ];
        //d
-        $productUpdated = $this->productRepository->updateProduct($request->_id, $data);
+        $productUpdated = $this->productRepository->updateProduct($request->id, $data);
         return response()->json("Success");
     }
 /////////////////////
