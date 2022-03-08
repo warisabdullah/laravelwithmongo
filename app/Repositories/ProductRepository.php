@@ -11,16 +11,24 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return Products::all();
     }
-    public function getProductById($ProductId){
+
+    public function getProductById($ProductId)
+    {
         return Products::findorfail($ProductId);
     }
-    public function deleteProduct($ProductId){
+
+    public function deleteProduct($ProductId)
+    {
         Products::destroy($ProductId);
     }
-    public function createProduct(array $orderDetails){
+
+    public function createProduct(array $orderDetails)
+    {
         return Products::create($orderDetails);
     }
-    public function updateProduct($productId, array $productDetails){
+
+    public function updateProduct($productId, array $productDetails)
+    {
         return Products::where('_id', $productId)->update($productDetails);
     }
 
