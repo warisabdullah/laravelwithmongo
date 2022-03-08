@@ -99,7 +99,7 @@ class ProductsController extends Controller
         $productUpdated = $this->productRepository->updateProduct($request->_id, $data);
         return response()->json("Success");
     }
-///////
+//////////////////
     /**
      * Remove the specified resource from storage.
      *
